@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Studio V39</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="vignette"></div>
+<div class="noise"></div>
+<div id="toastContainer"></div>
+
+<section id="welcomeScreen">
+    <div id="initialContent">
+        <div class="brand-box">
+            <h1 class="hero-title">STUDIO<span class="dot">.</span></h1>
+            <div class="hero-sub">Sonic Visual Design V39</div>
+        </div>
+        <button id="enterBtn" class="btn-enter">Initialize System</button>
+        <div id="restoreStatus" class="restore-msg"></div>
+    </div>
+    <div id="loadingSequence">
+        <div class="loader-content">
+            <div class="loader-status" id="loadStatus">Initializing...</div>
+            <div class="loader-number" id="loadNum">00</div>
+            <div class="loader-track"><div class="loader-fill" id="loadFill"></div></div>
+        </div>
+    </div>
+    <div class="footer-credit">All Rights Reserved 2026 • Created by Junrey Manriquez</div>
+</section>
+
+<div id="configModal">
+    <div class="modal-header">
+        <h2>Configuration</h2>
+    </div>
+    <div class="upload-row">
+        <div class="upload-zone">
+            <label id="imgLabel">1. Cover Art</label>
+            <input type="file" id="imageInput" accept="image/*">
+        </div>
+        <div class="upload-zone">
+            <label id="audioLabel">2. Audio File</label>
+            <input type="file" id="audioInput" accept="audio/*">
+        </div>
+    </div>
+    <div class="mode-switch">
+        <button class="mode-btn active" id="modeUpload">UPLOAD .LRC</button>
+        <button class="mode-btn" id="modePaste">PASTE .LRC CODE</button>
+        <button class="mode-btn" id="modeGenerate">MANUAL TAP</button>
+    </div>
+    <div id="paneUpload">
+        <div class="upload-zone dashed">
+            <label id="lrcLabel">3. Upload .LRC File</label>
+            <input type="file" id="lrcInput" accept=".lrc,.txt">
+        </div>
+        <br>
+        <button id="launchBtnFile" class="btn-main">LAUNCH STUDIO</button>
+    </div>
+    <div id="panePaste" style="display:none;">
+        <textarea id="pasteLrcArea" placeholder="[00:12.00] Paste your .LRC code here..."></textarea>
+        <br>
+        <button id="launchBtnPaste" class="btn-main">LAUNCH AUTO SYNC</button>
+    </div>
+    <div id="paneGenerate" style="display:none;">
+        <textarea id="rawLyrics" placeholder="Paste raw lyrics here (no timestamps)..."></textarea>
+        <br><br>
+        <button id="startSyncBtn" class="btn-main btn-sec">START TAP TOOL</button>
+    </div>
+</div>
+
+<div id="lyricLab">
+    <div class="lab-header">Lyric Sync Lab • Tap spacebar on beat</div>
+    <div class="lab-display">
+        <div class="lab-current" id="labCurrent">...</div>
+        <div class="lab-next" id="labNext">Next: ...</div>
+    </div>
+    <button class="btn-sync-tap" id="tapSyncBtn">TAP<br>SPACEBAR</button>
+</div>
+
+<div id="recModal">
+    <div class="rec-content">
+        <h3>Recording Setup</h3>
+        <p style="font-size:11px; color:#aaa; margin-bottom:20px; line-height:1.6; text-align:left; background:rgba(255,255,255,0.05); padding:15px; border-radius:10px;">
+            <span style="color:#fff; font-weight:700;">INSTRUCTIONS:</span><br>
+            1. Click "START" below.<br>
+            2. In the popup, click the <strong>"Chrome Tab"</strong> category.<br>
+            3. Select <strong>"Aesthetic Studio V39"</strong> (or index.html).<br>
+            <span style="color:#666; font-size:10px;">*If the tab is missing, try selecting "Window".</span>
+        </p>
+        <div class="rec-options">
+            <button class="rec-opt active" data-fps="30"><span>Standard</span><strong>30 FPS</strong></button>
+            <button class="rec-opt" data-fps="60"><span>Smooth</span><strong>60 FPS</strong></button>
+        </div>
+        <button id="startRecSequenceBtn" class="btn-main" style="margin-top:20px; background:#ff3b30; color:white; border:none;">START RECORDING</button>
+        <button id="cancelRecBtn" class="btn-text">Cancel</button>
+    </div>
+</div>
+
+<div id="exportModal">
+    <div class="rec-content">
+        <h3>Session Complete</h3>
+        <div class="export-grid">
+            <button id="downloadLocalBtn" class="export-opt">
+                <span>Download File</span>
+            </button>
+            <button id="generateQRBtn" class="export-opt">
+                <span>Phone QR Code</span>
+            </button>
+        </div>
+        <div id="qrArea" style="display:none; margin-top:20px;">
+            <div id="qrPlaceholder"></div>
+            <p id="qrStatus" style="font-size:10px; color:#888; margin-top:10px;">Connecting...</p>
+        </div>
+        <button id="closeExportBtn" class="btn-text">Close</button>
+    </div>
+</div>
+
+<div id="countdownOverlay">
+    <div id="countNum">3</div>
+</div>
+
+<main id="playerView">
+    <section class="left-visual">
+        <div class="jewel-case">
+            <div class="case-spine"></div>
+            <div class="case-gloss"></div>
+            <div class="cd-tray">
+                <div id="cdDisc" class="cd-disc">
+                    <div class="cd-hologram holo-spin"></div>
+                    <div class="cd-grooves"></div>
+                    <div class="cd-inner-ring"></div>
+                    <div class="cd-mirror-band"></div>
+                    <div class="cd-hole"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="right-lyrics">
+        <div id="lyricDisplay" class="lyrics-text"></div>
+    </section>
+</main>
+
+<div class="bottom-actions" id="actions">
+    <button class="action-btn" id="dlLrcBtn" style="display:none;">Download .LRC</button>
+    <button class="action-btn" id="recordBtn">Record</button>
+    <button class="action-btn" id="resetBtn">Reset</button>
+</div>
+
+<audio id="audioPlayer" crossOrigin="anonymous"></audio>
+<script src="script.js"></script>
+</body>
+</html>
